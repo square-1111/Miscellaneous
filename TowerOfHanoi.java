@@ -30,17 +30,35 @@ class HanoiGUI extends Frame{
     private ArrayList<Integer> to = new ArrayList<Integer>();
     private ArrayList<Integer> from = new ArrayList<Integer>();
     private ArrayList<Integer> disk = new ArrayList<Integer>();
-    private int count; 
+    private int count, maxi; 
     
+    private int power(int n){
+        int number = 1;
+        for(int i=0;i<n;i++){
+            number *= 3;
+        }
+        return number;
+    }
+
     HanoiGUI(int n){
         super("Tower of Hanoi");
+        maxi = power(n) - 1;
 
+        this.setBackground(new Color(219, 255, 252) );
         Button next = new Button("Next");  
-        next.setBounds(350,400,50,30);
+        next.setBounds(375,400,50,30);
         add(next);
-        Button reset = new Button("Reset");
-        reset.setBounds(400, 400, 50, 30);
-        add(reset);
+        Label srce = new Label("S");
+        srce.setBounds(160, 370, 30, 30);
+        add(srce);
+
+        Label auxi = new Label("A");
+        auxi.setBounds(400, 370, 30, 30);
+        add(auxi);
+
+        Label dest = new Label("D");
+        dest.setBounds(640, 370, 30, 30);
+        add(dest);
 
         for(int i=0;i<n;i++){
             rectangles.put(i+1,new Dimensions(50+i*20, 10));
@@ -53,12 +71,28 @@ class HanoiGUI extends Frame{
         next.addActionListener(new ActionListener(){  
             @Override
             public void actionPerformed(ActionEvent e){
-                count++;
-                configurationPegs(n, count);
-                for(int i=0;i<source.size();i++){
-                    System.out.print(source.get(i));
+                if(count == maxi){
+                    System.out.println("Program terminated");
+                    
                 }
-                //.setText("Welcome to Javatpoint.");
+                configurationPegs(n, count);
+                System.out.print("\nSource: ");
+                for(int i=0;i<source.size();i++){
+                    System.out.print(source.get(i)+" ");
+                }
+                System.out.println();
+                System.out.print("Auxiliary: ");
+                for(int i=0;i<auxiliary.size();i++){
+                    System.out.print(auxiliary.get(i)+" ");
+                }
+                System.out.println();
+                System.out.print("Destination: ");
+                for(int i=0;i<destination.size();i++){
+                    System.out.print(destination.get(i)+" ");
+                }
+                System.out.println();
+                count++;
+                repaint();
             }
         });
 
@@ -68,6 +102,7 @@ class HanoiGUI extends Frame{
     }
 
     public void towerOfHanoi(int src, int des,int aux, int n){
+        
         if(n>0){
             towerOfHanoi(src, des, aux,n-1);
             disk.add(n);
@@ -119,7 +154,7 @@ class HanoiGUI extends Frame{
         g.fillRect(400, 70, 3, 280);
         g.fillRect(640, 70, 3, 280);
         
-        g.setColor(new Color(0,0,0));
+        g.setColor(new Color(0, 99, 94));
 
         //Source
         for(int i=0;i<source.size();i++){
@@ -152,6 +187,6 @@ class HanoiGUI extends Frame{
 
 
     public static void main(String[] args){
-        HanoiGUI han = new HanoiGUI(5);
+        HanoiGUI han = new HanoiGUI(Integer.parseInt(args[0]));
     }
 }
