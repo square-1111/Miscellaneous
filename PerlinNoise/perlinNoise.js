@@ -16,7 +16,7 @@ var flowField;
 
 function setup(){
     createCanvas(w, h);
-    fill(255,0,0,255);
+    // fill(255,0,0,255);
     rows = floor(w/scl);
     cols = floor(h/scl);
 
@@ -25,7 +25,7 @@ function setup(){
     for(var i=0;i<100;i++){
         particles[i] = new Particle();
     }
-    background(255);
+    background(0);
 }
 
 function draw(){

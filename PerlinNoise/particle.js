@@ -28,8 +28,8 @@ function Particle(){
     }
 
     this.show = function(){
-        stroke(0,50);
-        fill(255,0,0,255);
+        stroke(255,50);
+        // fill(255,0,0,255);
         strokeWeight(2);
         line(this.pos.x, this.pos.y,this.prevPos.x,this.prevPos.y);
         this.updatePrev();
